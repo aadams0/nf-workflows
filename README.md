@@ -27,7 +27,7 @@ _\____/_/ __\_\_|    _     __ _
    \_/\_/ \___/|_|  |_|\_\_| |_|\___/ \_/\_/ |___/
 
 Samples:          null
-Reference Genome: /fs0/dev/GAP-Workflows-BETA/reference/Homo_sapiens_assembly38.fasta
+Reference Genome: ${PWD}/reference/Homo_sapiens_assembly38.fasta
 
 S U B W O R K F L O W   O P T I O N S
 =====================================
@@ -125,5 +125,20 @@ BAM to Tumor-Normal VCF
 
 ```text
 nextflow run --input bam --paired --subworkflow somatic-call --samples <path-to-sample-sheet> main.nf
+```
+
+### Updating an Existing Genomics Database
+
+If you want to use an existing genomics database for new samples, provide the *absolute* path to the genomics database using the `--updategendb` parameter.
+NB: the name of all genomics database directories is set as `GENDB`, but you can change this using the `--gendb` parameter. Below is an example of
+adding new `*.fastq` samples to an existing genomics database and joint-calling the updated cohort.
+
+```text
+nextflow run \
+  --input fastq \
+  --subworkflow joint-call \
+  --samples <path-to-sample-sheet> \
+  --updategendb <absolute-path-to-genomics-databse> \
+  main.nf
 ```
 
