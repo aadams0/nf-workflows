@@ -54,13 +54,15 @@ S U B W O R K F L O W   O P T I O N S
 
 --paired=false
   * Boolean to determine if somatic-caller subworkflow is run with a paired normal
-
-
 ```
+
+## Example Usage
 
 ### Sample Sheet Format
 
-The only *required* input for the workflow is a sample sheet, which is a headerless *csv* with either two or three columns. If starting from paired-end short read `*.fastq` inputs:
+All subworkflows require a sample sheet, which is a headerless *csv* with either two or three columns.
+Generally, each row provides a sample identifier and paths to fastq/bam files for the corresponding sample.
+If starting from paired-end short read `*.fastq` inputs:
 
 ```text
 sample01,<absolute-path-to-sample01-R1.fastq.gz>,<absolute-path-to-sample01-R2.fastq.gz>
@@ -68,7 +70,7 @@ sample02,<absolute-path-to-sample02-R1.fastq.gz>,<absolute-path-to-sample02-R2.f
 sample03,<absolute-path-to-sample03-R1.fastq.gz>,<absolute-path-to-sample03-R2.fastq.gz>
 ```
 
-If you are starting from aligned analysis-ready `*.bam` files:
+If you are starting from aligned, analysis-ready `*.bam` files:
 
 ```text
 sample01,<absolute-path-to-sample01.bam>
@@ -84,8 +86,6 @@ sample01,<absolute-path-to-sample01-tumor.bam>,<absolute-path-to-sample01-normal
 sample02,<absolute-path-to-sample02-tumor.bam>,<absolute-path-to-sample02-normal.bam>
 sample03,<absolute-path-to-sample03-tumor.bam>,<absolute-path-to-sample03-normal.bam>
 ```
-
-## Example Usage
 
 ### FASTQ Inputs
 
@@ -142,3 +142,40 @@ nextflow run \
   main.nf
 ```
 
+## Understanding Outputs
+
+The output folder has a default folder name `OUT`, however it can be renamed with the `--out` parameter. The exact contents of `OUT` will depend on your subworkflow.
+
+```text
+OUT/
+├─ bams/
+│  ├─ <sample01>-markdup-bqsr.bam
+│  ├─ <sample02>-markdup-bqsr.bam
+│  ├─ ...
+├─ gvcfs/
+│  ├─ <sample02>.g.vcf.gz
+│  ├─ <sample01>.g.vcf.gz
+│  ├─ ...
+├─ <genomicsdb_name>/
+├─ cohort-vcfs/
+│  ├─ cohort-<genomicsdb_name>.vcf.gz
+│  ├─ cohort-<genomicsdb_name>-snp-recal.vcf.gz
+│  ├─ cohort-<genomicsdb_name>-snp-indel-recal.vcf.gz
+├─ pon/
+│  ├─ pon-<genomicsdb_name>.vcf.gz
+├─ mutect2/
+│  ├─ filtered/
+│  │  ├─ <sample01>-mutect2-filtered.vcf.gz
+│  │  ├─ ...
+│  ├─ unfiltered/
+│  │  ├─ <sample01>-mutect2.vcf.gz
+│  │  ├─ ...
+├─ reports/
+│  ├─ <tool-name>-<sample01>.html
+│  ├─ <tool-name>-<sample02>.html
+│  ├─ ...
+├─ logs/
+│  ├─ <tool_name>-<sample01>.log
+│  ├─ <tool_name>-<sample02>.log
+│  ├─ ...
+```
