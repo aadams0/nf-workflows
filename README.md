@@ -32,28 +32,25 @@ Reference Genome: ${PWD}/reference/Homo_sapiens_assembly38.fasta
 S U B W O R K F L O W   O P T I O N S
 =====================================
 --input=null
-  * Input file type (options: fastq, bam)
+  <string> input file type (options: fastq, bam)
 
 --subworkflow=null
-  * Subworkflow (options: joint-call, somatic-call, make-pon)
+  <string> subworkflow (options: joint-call, somatic-call, make-pon)
 
 --out=OUT
-  * Name of outputs directory
+  <string> name of outputs directory
 
 --pon=null
-  * Path to panel of normals
-  * Used in somatic-call subworkflow
+  <string> path to panel of normals; used in somatic-call subworkflow
 
 --gendb=GENDB
-  * Name of new genomics database
-  * Used in joint-call and make-pon subworkflow
+  <string> name of new genomics database; used in joint-call and make-pon subworkflow
 
 --updategendb=null
-  * Path to existing genomics database
-  * Used when adding a new sample to genomicsdb in joint-call or make-pon subworkflow
+  <string> path to existing genomics database; used when adding a new sample to genomicsdb in joint-call or make-pon subworkflow
 
 --paired=false
-  * Boolean to determine if somatic-caller subworkflow is run with a paired normal
+  <boolean> determines if somatic-caller subworkflow is run with a paired normal
 ```
 
 ## Example Usage
@@ -89,42 +86,45 @@ sample03,<absolute-path-to-sample03-tumor.bam>,<absolute-path-to-sample03-normal
 
 ### FASTQ Inputs
 
-FASTQ to BAM
-
-```text
+```bash
+# FASTQ to BAM
 nextflow run --input fastq --samples <path-to-sample-sheet> main.nf
-```
 
-FASTQ to Germline Cohort VCF
+# FASTQ to Germline Cohort VCF
+nextflow run --input fastq \
+  --subworkflow joint-call \
+  --samples <path-to-sample-sheet> \
+  main.nf
 
-```text
-nextflow run --input fastq --subworkflow joint-call --samples <path-to-sample-sheet> main.nf
-```
+# FASTQ to Tumor-Only VCF
+nextflow run --input fastq \
+  --subworkflow somatic-call \
+  --samples <path-to-sample-sheet> \
+  main.nf
 
-FASTQ to Tumor-Only VCF
-
-```text
-nextflow run --input fastq --subworkflow somatic-call --samples <path-to-sample-sheet> main.nf
 ```
 
 ### BAM Inputs
 
-BAM to Germline Cohort VCF
+```bash
+# BAM to Germline Cohort VCF
+nextflow run --input bam \
+  --subworkflow joint-call \
+  --samples <path-to-sample-sheet> \
+  main.nf
 
-```text
-nextflow run --input bam --subworkflow joint-call --samples <path-to-sample-sheet> main.nf
-```
+# BAM to Tumor-Only VCF
+nextflow run --input bam \
+  --subworkflow somatic-call \
+  --samples <path-to-sample-sheet> \
+  main.nf
 
-BAM to Tumor-Only VCF
-
-```text
-nextflow run --input bam --subworkflow somatic-call --samples <path-to-sample-sheet> main.nf
-```
-
-BAM to Tumor-Normal VCF
-
-```text
-nextflow run --input bam --paired --subworkflow somatic-call --samples <path-to-sample-sheet> main.nf
+# BAM to Tumor-Normal VCF
+nextflow run --input bam \
+  --paired \
+  --subworkflow somatic-call \
+  --samples <path-to-sample-sheet> \
+  main.nf
 ```
 
 ### Updating an Existing Genomics Database
@@ -142,7 +142,7 @@ nextflow run \
   main.nf
 ```
 
-## Understanding Outputs
+## Outputs
 
 The output folder has a default folder name `OUT`, however it can be renamed with the `--out` parameter. The exact contents of `OUT` will depend on your subworkflow.
 
