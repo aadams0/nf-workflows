@@ -8,7 +8,7 @@ This pipeline is designed to run germline joint variant calling and somatic vari
 It was developed to handle a variety of common workflow considerations, such as custom intervals for WES/WGS, inclusion of paired normals, creation of a panel of
 normals, and quality control reporting and metrics. The main subworkflows can be seen in the diagram below.
 
-![diagram](./workflow-diagram.png)
+![diagram](./assets/workflow-diagram.png)
 
 ## Getting Started
 

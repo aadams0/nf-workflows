@@ -2,8 +2,9 @@
 work/
 data/
 results/
-reference/
-images/
+assets/reference/*
+assets/containers/*
+assets/targets/*
 out/
 .DS_Store
 testing/
