@@ -29,7 +29,7 @@ process BWA_MEM {
   tuple(
     val(sample_id),
     path("${sample_id}.bam"),
-    emit: bwa_mem
+    emit: bam
   )
   
   """
