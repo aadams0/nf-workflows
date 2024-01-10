@@ -62,44 +62,44 @@ Generally, each row provides a sample identifier and paths to fastq/bam files fo
 If starting from paired-end short read `*.fastq` inputs:
 
 ```text
-sample01,<absolute-path-to-sample01-R1.fastq.gz>,<absolute-path-to-sample01-R2.fastq.gz>
-sample02,<absolute-path-to-sample02-R1.fastq.gz>,<absolute-path-to-sample02-R2.fastq.gz>
-sample03,<absolute-path-to-sample03-R1.fastq.gz>,<absolute-path-to-sample03-R2.fastq.gz>
+sample01,/absolute/path/to/sample01-R1.fastq.gz,/absolute/path/to/sample01-R2.fastq.gz
+sample02,/absolute/path/to/sample02-R1.fastq.gz,/absolute/path/to/sample02-R2.fastq.gz
+sample03,/absolute/path/to/sample03-R1.fastq.gz,/absolute/path/to/sample03-R2.fastq.gz
 ```
 
 If you are starting from aligned, analysis-ready `*.bam` files:
 
 ```text
-sample01,<absolute-path-to-sample01.bam>
-sample02,<absolute-path-to-sample02.bam>
-sample03,<absolute-path-to-sample03.bam>
+sample01,/absolute/path/to/sample01.bam
+sample02,/absolute/path/to/sample02.bam
+sample03,/absolute/path/to/sample03.bam
 ```
 
 Alternatively, if you want to run the somatic call workflow with a paired normal, you must use a three-columns sample sheet, where the second and third columns are paths to the 
 tumor and normal `*.bam` files, respectively.
 
 ```text
-sample01,<absolute-path-to-sample01-tumor.bam>,<absolute-path-to-sample01-normal.bam>
-sample02,<absolute-path-to-sample02-tumor.bam>,<absolute-path-to-sample02-normal.bam>
-sample03,<absolute-path-to-sample03-tumor.bam>,<absolute-path-to-sample03-normal.bam>
+sample01,/absolute/path/to/sample01-tumor.bam,/absolute/path/to/sample01-normal.bam
+sample02,/absolute/path/to/sample02-tumor.bam,/absolute/path/to/sample02-normal.bam
+sample03,/absolute/path/to/sample03-tumor.bam,/absolute/path/to/sample03-normal.bam
 ```
 
 ### FASTQ Inputs
 
 ```bash
 # FASTQ to BAM
-nextflow run --input fastq --samples <path-to-sample-sheet> main.nf
+nextflow run --input fastq --samples /path/to/sample-sheet.csv main.nf
 
 # FASTQ to Germline Cohort VCF
 nextflow run --input fastq \
   --subworkflow joint-call \
-  --samples <path-to-sample-sheet> \
+  --samples /path/to/sample-sheet.csv \
   main.nf
 
 # FASTQ to Tumor-Only VCF
 nextflow run --input fastq \
   --subworkflow somatic-call \
-  --samples <path-to-sample-sheet> \
+  --samples /path/to/sample-sheet.csv \
   main.nf
 
 ```
@@ -110,20 +110,20 @@ nextflow run --input fastq \
 # BAM to Germline Cohort VCF
 nextflow run --input bam \
   --subworkflow joint-call \
-  --samples <path-to-sample-sheet> \
+  --samples /path/to/sample-sheet.csv \
   main.nf
 
 # BAM to Tumor-Only VCF
 nextflow run --input bam \
   --subworkflow somatic-call \
-  --samples <path-to-sample-sheet> \
+  --samples /path/to/sample-sheet.csv \
   main.nf
 
 # BAM to Tumor-Normal VCF
 nextflow run --input bam \
   --paired \
   --subworkflow somatic-call \
-  --samples <path-to-sample-sheet> \
+  --samples /path/to/sample-sheet.csv \
   main.nf
 ```
 
@@ -137,8 +137,8 @@ adding new `*.fastq` samples to an existing genomics database and joint-calling 
 nextflow run \
   --input fastq \
   --subworkflow joint-call \
-  --samples <path-to-sample-sheet> \
-  --updategendb <absolute-path-to-genomics-databse> \
+  --samples /path/to/sample-sheet.csv \
+  --updategendb /absolute/path/to/genomics-databse> \
   main.nf
 ```
 
