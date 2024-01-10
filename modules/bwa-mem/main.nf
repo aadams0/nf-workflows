@@ -10,12 +10,6 @@ process BWA_MEM {
     pattern: "*.log"
   )
 
-  publishDir(
-    "${params.out}/reports",
-    mode: "copy",
-    pattern: "*.{html,json}"
-  )
-
   input:
   tuple(
     val(sample_id),
@@ -25,7 +19,6 @@ process BWA_MEM {
 
   output:
   path("*.log")
-  path("*.{html,json}")
   tuple(
     val(sample_id),
     path("${sample_id}.bam"),
