@@ -1,5 +1,5 @@
 /*
-Align to reference genome with BWA MEM and sort with samtools.
+Preprocess raw fastq files with fastp, align to reference genome with BWA MEM, and sort with samtools.
 */
 process BWA_MEM {
   tag "$sample_id"
@@ -29,7 +29,7 @@ process BWA_MEM {
   tuple(
     val(sample_id),
     path("${sample_id}.bam"),
-    emit: bwa_mem
+    emit: bam
   )
   
   """
@@ -45,7 +45,16 @@ process BWA_MEM {
   read_group=\$(echo "@RG\\tID:\$flowcell_id.${sample_id}.\$lane\\tSM:${sample_id}\\tPL:illumina\\tLB:twist-exome\\tPU:\$flowcell_id.\$lane")
   # e.g. @RG\tID:H2KJTDSX5.0001.1\tSM:0001\tPL:illumina\tLB:twist-exome\tPU:H2KJTDSX5.1
 
-  bwa mem \
+  fastp \
+    --stdout \
+    --thread 2 \
+    -i ${r1_path} \
+    -I ${r2_path} \
+    -h fastp-${sample_id}.html \
+    -j fastp-${sample_id}.json \
+    --dont_overwrite \
+    2> fastp-${sample_id}.log \
+  | bwa mem \
     -M \
     -p \
     -t 32 \
@@ -53,8 +62,7 @@ process BWA_MEM {
     ${params.ref} \
     - \
     2> bwa-${sample_id}.log \
-  | samtools sort \
-    -T ${sample_id}-samtools-tmp \
+  | samtools sort -T part \
     -m 1706M \
     -@ 12 \
     -O BAM \
