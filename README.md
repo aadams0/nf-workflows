@@ -138,7 +138,7 @@ nextflow run \
   --input fastq \
   --subworkflow joint-call \
   --samples /path/to/sample-sheet.csv \
-  --updategendb /absolute/path/to/genomics-databse> \
+  --updategendb /absolute/path/to/genomics-databse \
   main.nf
 ```
 
