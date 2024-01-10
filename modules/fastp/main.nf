@@ -30,7 +30,7 @@ process FASTP {
     val(sample_id),
     path("${sample_id}-fastp-R1.fastq.gz"),
     path("${sample_id}-fastp-R2.fastq.gz"),
-    emit: processed_qfastq
+    emit: processed_fastq
   )
   
   """
