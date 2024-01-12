@@ -49,8 +49,7 @@ process BWA_MEM {
     2> bwa-${sample_id}.log \
   | samtools sort \
     -T ${sample_id}-samtools-tmp \
-    -m 1706M \
-    -@ 12 \
+    -@ 32 \
     -O BAM \
     -o ${sample_id}.bam \
     2> samtools-${sample_id}.log
