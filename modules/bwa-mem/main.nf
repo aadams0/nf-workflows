@@ -40,7 +40,6 @@ process BWA_MEM {
 
   bwa mem \
     -M \
-    -P \
     -t 32 \
     -R \$read_group \
     ${params.ref} \
