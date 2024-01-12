@@ -15,31 +15,46 @@ _\\____/_/ __\\_\\_|    _     __ _
   \\ V  V / (_) | |  |   <|  _| | (_) \\ V  V /\\__ \\
    \\_/\\_/ \\___/|_|  |_|\\_\\_| |_|\\___/ \\_/\\_/ |___/
 
-Samples:          ${params.samples}
-Reference Genome: ${params.ref}
+R E F E R E N C E  D A T A
+==========================
+Reference Genome:
+  ${params.ref}
+  
+Additional Reference Files:
+  ${params.dbsnp ? params.dbsnp : ""}
+  ${params.known_indels ? params.known_indels : ""}
+  ${params.mills ? params.mills : ""}
+  ${params.hapmap ? params.hapmap : ""}
+  ${params.omni ? params.omni : ""}
+  ${params.phase1 ? params.phase1 : ""}
+  ${params.germline_resource ? params.germline_resource : ""}
+  ${params.common_germline_variants ? params.common_germline_variants : ""}
 
 S U B W O R K F L O W   O P T I O N S
 =====================================
+--samples=${params.samples}
+  <PATH> path to sample sheet CSV
+
 --input=${params.input}
-  <string> input file type (options: fastq, bam)
+  <STRING> input file type (options: fastq, bam)
 
 --subworkflow=${params.subworkflow}
-  <string> subworkflow (options: joint-call, somatic-call, make-pon)
+  <STRING> subworkflow (options: joint-call, somatic-call, make-pon)
 
 --out=${params.out}
-  <string> name of outputs directory
+  <STRING> name of outputs directory
 
 --pon=${params.pon}
-  <string> path to panel of normals; used in somatic-call subworkflow
+  <PATH> path to panel of normals; used in somatic-call subworkflow
 
 --gendb=${params.gendb}
-  <string> name of new genomics database; used in joint-call and make-pon subworkflow
+  <STRING> name of new genomics database; used in joint-call and make-pon subworkflow
 
 --updategendb=${params.updategendb}
-  <string> path to existing genomics database; used when adding a new sample to genomicsdb in joint-call or make-pon subworkflow
+  <PATH> path to existing genomics database; used when adding a new sample to genomicsdb in joint-call or make-pon subworkflow
 
 --paired=${params.paired}
-  <boolean> determines if somatic-caller subworkflow is run with a paired normal
+  <BOOLEAN> determines if somatic-caller subworkflow is run with a paired normal
 """
 .stripIndent()
 

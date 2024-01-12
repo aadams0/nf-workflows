@@ -44,7 +44,8 @@ process BWA_MEM {
     -t 32 \
     -R \$read_group \
     ${params.ref} \
-    - \
+    ${r1_path} \
+    ${r2_path} \
     2> bwa-${sample_id}.log \
   | samtools sort \
     -T ${sample_id}-samtools-tmp \
