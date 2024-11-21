@@ -16,11 +16,11 @@ To run these workflows, you will need to install [Nextflow](https://github.com/n
 on an x86_64 machine. On the first run, a Docker image will be pulled to create a Singularity container with all of the required software for the workflow.
 
 ```text
-  ____    _    ____                               
- / ___|  / \  |  _ \                              
-| |  _  / _ \ | |_) |                             
-| |_| |/ ___ \|  __/                              
-_\____/_/ __\_\_|    _     __ _                   
+ _   _           _    __ _                        
+| \ | | _____  _| |_ / _| | _____      __         
+|  \| |/ _ \ \/ / __| |_| |/ _ \ \ /\ / /         
+| |\  |  __/>  <| |_|  _| | (_) \ V  V /          
+|_| \_|\___/_/\_\\__|_| |_|\___/ \_/\_/           
 \ \      / /__  _ __| | __/ _| | _____      _____ 
  \ \ /\ / / _ \| '__| |/ / |_| |/ _ \ \ /\ / / __|
   \ V  V / (_) | |  |   <|  _| | (_) \ V  V /\__ \
